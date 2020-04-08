@@ -28,11 +28,11 @@
 
           <tr>
             <td>
-              <v-textarea rows="1" prepend-icon="home" @addingList="addingList"></v-textarea>
+              <v-textarea rows="1" prepend-icon="home" v-model="title"></v-textarea>
             </td>
 
             <td>
-              <v-btn depressed icon @click="$emit('addingList')">
+              <v-btn depressed icon @click="addNewList">
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </td>
@@ -73,7 +73,7 @@ export default {
 
   data() {
     return {
-      newTitle: { title: "", completed: false },
+      title: "",
       lists: [
         { title: "Play Game", completed: false },
         { title: "Sleep", completed: false },
@@ -84,11 +84,10 @@ export default {
       ]
     };
   },
-
   methods: {
-    addNewList: function(e) {
-      this.newTitle.title = e.target.value;
-      this.lists.push(this.newTitle);
+    addNewList: function() {
+      this.lists.push({ title: this.title, completed: false });
+      this.title = "";
     }
   }
 };
