@@ -3,91 +3,93 @@
     <v-row>
       <v-col>
         <h1 class="title">To Do</h1>
+        <v-spacer></v-spacer>
+        <todo-list :listsData="lists" @clicked="finishList" @added="addNewList"></todo-list>
+      </v-col>
 
-        <table>
-          <h2>Incompleted</h2>
-          <tr v-for="list in lists.filter(doneList => doneList.completed==false)" :key="list">
-            <td>{{ list.title }}</td>
-
-            <td>
-              <v-btn
-                v-if="!list.completed"
-                depressed
-                icon
-                color="green"
-                @click="list.completed=!list.completed"
-              >
-                <v-icon>done</v-icon>
-              </v-btn>
-
-              <v-btn v-else depressed icon color="red" @click="list.completed=!list.completed">
-                <v-icon>remove</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <v-textarea rows="1" prepend-icon="home" v-model="title"></v-textarea>
-            </td>
-
-            <td>
-              <v-btn depressed icon @click="addNewList">
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-
-          <h2>Completed</h2>
-
-          <tr v-for="list in lists.filter(doneList => doneList.completed==true)" :key="list">
-            <td>{{ list.title }}</td>
-
-            <td>
-              <v-btn
-                v-if="!list.completed"
-                depressed
-                icon
-                color="green"
-                @click="list.completed=!list.completed"
-              >
-                <v-icon>done</v-icon>
-              </v-btn>
-
-              <v-btn v-else depressed icon color="red" @click="list.completed=!list.completed">
-                <v-icon>remove</v-icon>
-              </v-btn>
-            </td>
-          </tr>
-        </table>
+      <v-col>
+        <todo-history :listData="lists"></todo-history>
       </v-col>
     </v-row>
-
-    <v-row></v-row>
   </v-container>
 </template>
 
 <script>
+import todoListVue from "../components/todoList.vue";
+import todoHistoryVue from "../components/todoHistory.vue";
 export default {
   name: "Home",
 
+  components: {
+    "todo-list": todoListVue,
+    "todo-history": todoHistoryVue
+  },
+
   data() {
     return {
-      title: "",
       lists: [
-        { title: "Play Game", completed: false },
-        { title: "Sleep", completed: false },
-        { title: "Eat", completed: false },
-        { title: "Talk", completed: false },
-        { title: "Code", completed: false },
-        { title: "Design", completed: false }
+        {
+          title: "Play Game",
+          completed: false,
+          created_date: 0,
+          finished_date: null
+        },
+        {
+          title: "Sleep",
+          completed: false,
+          created_date: 0,
+          finished_date: null
+        },
+        {
+          title: "Eat",
+          completed: false,
+          created_date: 0,
+          finished_date: null
+        },
+        {
+          title: "Talk",
+          completed: false,
+          created_date: 0,
+          finished_date: null
+        },
+        {
+          title: "Code",
+          completed: false,
+          created_date: 0,
+          finished_date: null
+        },
+        {
+          title: "Design",
+          completed: false,
+          created_date: 0,
+          finished_date: null
+        }
       ]
     };
   },
+
   methods: {
-    addNewList: function() {
-      this.lists.push({ title: this.title, completed: false });
-      this.title = "";
+    addNewList: function(title) {
+      if (title != "") {
+        let date = new Date();
+        let localDate = date.toLocaleDateString();
+
+        this.lists.push({
+          title: title,
+          completed: false,
+          created_date: localDate,
+          finished_date: null
+        });
+      }
+    },
+    finishList: function(title, status) {
+      let date = new Date();
+      let localDate = date.toLocaleDateString();
+
+      let finished_list = this.lists.filter(list => list.title == title);
+
+      finished_list[0].completed = status;
+      finished_list[0].finished_date = localDate;
     }
   }
 };

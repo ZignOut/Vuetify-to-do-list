@@ -1,23 +1,7 @@
 <template>
   <v-app>
     <div>
-      <v-toolbar>
-        <v-toolbar-title>My Todo List</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-items>
-          <v-btn icon>
-            <v-icon>mdi-facebook</v-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <v-icon>mdi-instagram</v-icon>
-          </v-btn>
-
-          <v-btn icon>
-            <v-icon>mdi-github</v-icon>
-          </v-btn>
-        </v-toolbar-items>
-      </v-toolbar>
+      <todo-toolbar></todo-toolbar>
     </div>
 
     <v-content>
@@ -27,11 +11,16 @@
 </template>
 
 <script>
+import todoToolBarVue from './components/todoToolBar.vue';
 export default {
   name: "App",
 
   data: () => ({
     //
-  })
+  }),
+
+  components: {
+    'todo-toolbar': todoToolBarVue
+  }
 };
 </script>
