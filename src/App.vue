@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import todoToolBarVue from './components/todoToolBar.vue';
+import todoToolBarVue from "./components/todoToolBar.vue";
 export default {
   name: "App",
 
@@ -20,7 +20,7 @@ export default {
   }),
 
   components: {
-    'todo-toolbar': todoToolBarVue
+    "todo-toolbar": todoToolBarVue
   }
 };
 </script>

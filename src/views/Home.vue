@@ -1,16 +1,10 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col>
-        <h1 class="title">To Do</h1>
-        <v-spacer></v-spacer>
-        <todo-list :listsData="lists" @clicked="finishList" @added="addNewList"></todo-list>
-      </v-col>
+    <h1 class="title">To Do</h1>
+    <v-spacer></v-spacer>
+    <todo-list :listsData="lists" @clicked="finishList" @added="addNewList"></todo-list>
 
-      <v-col>
-        <todo-history :listData="lists"></todo-history>
-      </v-col>
-    </v-row>
+    <todo-history :listData="lists"></todo-history>
   </v-container>
 </template>
 
